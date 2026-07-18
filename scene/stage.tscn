@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://doiygcmgeq1bl"]
+
+[ext_resource type="Texture2D" uid="uid://ca7siaxxkw1p8" path="res://icon.svg" id="1_fxbd7"]
+[ext_resource type="PackedScene" uid="uid://ckbcflbdqtgpg" path="res://scene/player.tscn" id="2_4cbax"]
+[ext_resource type="PackedScene" uid="uid://bikfojqn4xvwm" path="res://scene/virtual_joystick.tscn" id="3_svt74"]
+[ext_resource type="Texture2D" uid="uid://c71n150periiq" path="res://joystick assets/joystick_tip.png" id="4_d8w7t"]
+[ext_resource type="Texture2D" uid="uid://b3tbopry6yqnb" path="res://assets/buttons/fire-dash.svg" id="5_vdh54"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g7b7a"]
+distance = -649.0
+
+[node name="stage" type="Node2D" unique_id=1120474911]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1024553476]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=840578587]
+shape = SubResource("WorldBoundaryShape2D_g7b7a")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1167996303]
+position = Vector2(584.5, 651.5)
+scale = Vector2(16.804688, -0.07031238)
+texture = ExtResource("1_fxbd7")
+
+[node name="Player" parent="." unique_id=1946696683 node_paths=PackedStringArray("joystick") instance=ExtResource("2_4cbax")]
+position = Vector2(452, 334)
+joystick = NodePath("CanvasLayer2/Joystick")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Player" unique_id=1179737287]
+
+[node name="Joystick" parent="Player/CanvasLayer2" unique_id=53262006 instance=ExtResource("3_svt74")]
+position = Vector2(224, 550)
+
+[node name="Jump" type="TouchScreenButton" parent="Player/CanvasLayer2" unique_id=989937136]
+self_modulate = Color(1, 1, 1, 0.2509804)
+position = Vector2(1257, 484.00003)
+scale = Vector2(1.5233448, 1.3568007)
+texture_normal = ExtResource("4_d8w7t")
+texture_pressed = ExtResource("4_d8w7t")
+action = "ui_accept"
+visibility_mode = 1
+
+[node name="Dash" type="TouchScreenButton" parent="Player/CanvasLayer2" unique_id=1265348220]
+self_modulate = Color(1, 1, 1, 0.24313726)
+position = Vector2(1042, 484)
+scale = Vector2(0.26757804, 0.265625)
+texture_normal = ExtResource("5_vdh54")
+action = "dash"
+visibility_mode = 1

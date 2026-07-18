@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bikfojqn4xvwm"]
+
+[ext_resource type="Script" uid="uid://c6tb10c4jh2i6" path="res://scrpts/virtual_joystick/virtual_joystick.gd" id="1_03gef"]
+[ext_resource type="Texture2D" uid="uid://dsagg7upty8v1" path="res://joystick assets/joystick_base_outline.png" id="2_fvkt7"]
+[ext_resource type="Texture2D" uid="uid://c71n150periiq" path="res://assets/joystick assets/joystick_tip.png" id="3_3bg1s"]
+[ext_resource type="Script" uid="uid://cp881d2wfoq13" path="res://scrpts/virtual_joystick/knob.gd" id="4_78fqp"]
+[ext_resource type="Script" uid="uid://3ikwn20dkft6" path="res://scrpts/virtual_joystick/label.gd" id="5_3bg1s"]
+[ext_resource type="Script" uid="uid://na5yjtxna1lt" path="res://scrpts/virtual_joystick/label2.gd" id="6_my8xf"]
+
+[node name="Joystick" type="Node2D" unique_id=53262006]
+script = ExtResource("1_03gef")
+
+[node name="ring" type="Sprite2D" parent="." unique_id=263169709]
+texture = ExtResource("2_fvkt7")
+
+[node name="knob" type="Sprite2D" parent="." unique_id=962015420 node_paths=PackedStringArray("parent")]
+texture = ExtResource("3_3bg1s")
+script = ExtResource("4_78fqp")
+parent = NodePath("..")
+
+[node name="Button" type="Button" parent="." unique_id=825560537]
+self_modulate = Color(1, 1, 1, 0.08235294)
+offset_left = -99.0
+offset_top = -101.0
+offset_right = -70.71429
+offset_bottom = -72.42857
+scale = Vector2(7, 7)
+
+[node name="Label" type="Label" parent="." unique_id=578697844 node_paths=PackedStringArray("joystick", "knob")]
+offset_left = -66.0
+offset_top = -178.0
+offset_right = 52.0
+offset_bottom = -134.0
+theme_override_font_sizes/font_size = 31
+script = ExtResource("5_3bg1s")
+joystick = NodePath("..")
+knob = NodePath("../knob")
+
+[node name="Label2" type="Label" parent="." unique_id=810311941]
+visible = false
+offset_left = -34.0
+offset_top = -222.0
+offset_right = 6.0
+offset_bottom = -199.0
+script = ExtResource("6_my8xf")
+
+[connection signal="button_down" from="Button" to="knob" method="_on_button_button_down"]
+[connection signal="button_up" from="Button" to="knob" method="_on_button_button_up"]

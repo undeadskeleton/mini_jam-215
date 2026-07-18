@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://ckbcflbdqtgpg"]
+
+[ext_resource type="Texture2D" uid="uid://b3mn63wkcr5ed" path="res://joystick assets/icon.svg" id="1_6l2d8"]
+[ext_resource type="Script" uid="uid://dqisqo62ki4kd" path="res://scrpts/player/player.gd" id="1_um4lu"]
+[ext_resource type="Script" uid="uid://bnhyc5owqhmi" path="res://scrpts/state_machine/state_machine.gd" id="4_ct4mp"]
+[ext_resource type="Script" uid="uid://bf4l2bhgemgsj" path="res://scrpts/state_machine/walk.gd" id="5_s4jxa"]
+[ext_resource type="Script" uid="uid://dftc8ajlx3ico" path="res://scrpts/state_machine/idle.gd" id="6_oh5ij"]
+[ext_resource type="Script" uid="uid://bepftctunusne" path="res://scrpts/state_machine/dash.gd" id="7_g2vtq"]
+[ext_resource type="Script" uid="uid://ci6hdc16msawn" path="res://scrpts/state_machine/jump.gd" id="7_hp4bs"]
+[ext_resource type="Script" uid="uid://0xp4sjyi0j61" path="res://scrpts/state_machine/fall.gd" id="8_2fvbb"]
+[ext_resource type="Script" uid="uid://cmxn3kg4bib5j" path="res://scrpts/state_machine/state_debug.gd" id="8_g2vtq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g7b7a"]
+radius = 54.0
+height = 128.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1946696683]
+script = ExtResource("1_um4lu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=658398209]
+texture = ExtResource("1_6l2d8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=773010317]
+shape = SubResource("CapsuleShape2D_g7b7a")
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=411858525]
+position = Vector2(4, -450)
+zoom = Vector2(0.5, 0.5)
+
+[node name="StateMachine" type="Node" parent="." unique_id=1562834448 node_paths=PackedStringArray("initialState", "player_ref")]
+script = ExtResource("4_ct4mp")
+initialState = NodePath("Idle")
+player_ref = NodePath("..")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=323863585]
+script = ExtResource("5_s4jxa")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1999843374]
+script = ExtResource("6_oh5ij")
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=956059430]
+script = ExtResource("7_hp4bs")
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=1027076962]
+script = ExtResource("7_g2vtq")
+Dash_SPEED = 700
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1093285273]
+script = ExtResource("8_2fvbb")
+
+[node name="StateDebug" type="Label" parent="." unique_id=2095581105]
+offset_left = -68.0
+offset_top = -128.0
+offset_right = 66.0
+offset_bottom = -83.0
+theme_override_font_sizes/font_size = 40
+script = ExtResource("8_g2vtq")
